@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 闭包
+      // return 函数
+      // 必须两个函数，执行外面的函数返回里面的函数
+      // 返回的函数中调用外部函数中的局部变量
+      // 两个函数嵌套，执行外部函数返回内部函数存储为全局变量
+      // 内部函数有权访问外部函数的局部变量，并保留不被销毁
+      /* function abc(){
+          var a=1;
+          function fn(){
+              a++;
+              console.log(a)
+          }
+          return fn;
+      }
+      var fn=abc();
+      fn();
+      fn();
+      console.log(a)//局部变量调用不到 */
+
+      // 特征
+      // 1、具备独立私有变量，私有变量只能在某个作用域内访问，并且可以长期存储  （类似于PHP中static变量）
+      //     局部变量，也是只能在某个作用域内访问，但是不能长期存储
+      // 2、可以防止变量污染，防止名字冲突
+      // 3、容易造成内存泄漏
+
+      //______ 闭包的用途
+      // 1、防止变量污染
+      /* var Utils=(function(){
+          var s=10;
+          return {
+              a:function(){
+                  s++;
+                  console.log(s)
+              }
+          }
+      })();
+      var s=100;
+      Utils.a(); */
+
+      // 2、闭包可以用于私有存储
+      function abc(_b, _c) {
+        this.a++;
+        this.b = _b;
+        this.c = _c;
+        console.log(this);
+        return this;
+      }
+      var obj = { a: 1 };
+      var f = abc.bind(obj);
+      setTimeout(f, 1000);
+
+      function binds(fn, obj) {
+        return function () {
+          return fn.apply(obj, arguments);
+        };
+      }
+      var f = binds(abc, obj);
+      setTimeout(f, 2000);
+      var o = f(20, 100);
+      console.log(o);
+    </script>
+  </body>
+</html>

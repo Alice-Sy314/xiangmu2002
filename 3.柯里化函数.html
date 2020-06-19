@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 选学知识
+      // curry 柯里化
+
+      function curry(fn) {
+        var arr = [];
+        return function () {
+          if (arguments.length > 0) {
+            //slice返回数组  slice(start，end)
+            arr = arr.concat([].slice.call(arguments));
+            // arr=arr.concat(Array.from(arguments)) 等同上句
+            return arguments.callee; //返回当前函数
+          } else {
+            /* var sum = 0;
+            for (var i = 0; i < arr.length; i++) {
+              sum += arr[i];
+            }
+            return sum; */
+
+            /* return arr.reduce(function(value,item){
+              return value+item
+            }) */
+
+            return fn(arr);
+          }
+        };
+      }
+
+      function getSum(arr) {
+        var sum = arr.reduce(function (value, item) {
+          return value + item;
+        });
+        return sum;
+      }
+
+      function getProduct(arr){
+        return arr.reduce(function(value,item){
+          return value*item;
+        })
+      }
+      var sum = curry(getProduct);
+      // sum(2, 3);
+      // sum(4, 5, 6);
+      // sum(7, 8);
+      // sum(9);
+      sum(2,3)(4,5,6)(7,8)(9);
+      var s = sum();
+      console.log(s);
+    </script>
+  </body>
+</html>

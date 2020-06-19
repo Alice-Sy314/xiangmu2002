@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const options = [
+        {
+          value: "330000",
+          label: "浙江省",
+          children: [
+            {
+              value: "330100",
+              label: "杭州市",
+              children: [
+                {
+                  value: "330106",
+                  label: "西湖区",
+                },
+                {
+                  value: "330107",
+                  label: "余杭区",
+                },
+              ],
+            },
+            {
+              value: "330200",
+              label: "温州市",
+              children: [
+                {
+                  value: "330206",
+                  label: "龙湾区",
+                },
+              ],
+            },
+          ],
+        },
+        {
+          value: "120000",
+          label: "新疆维吾尔自治区",
+          children: [
+            {
+              value: "120100",
+              label: "博尔塔拉蒙古自治州",
+              children: [
+                {
+                  value: "120111",
+                  label: "阿拉山口市",
+                },
+              ],
+            },
+          ],
+        },
+      ];
+
+      /**
+ * 实现函数平铺上面的树形结构，预期结果如下：flattenTree(options)
+  [
+    [{  "value": "330000",  "label": "浙江省"},{  "value": "330100",  "label": "杭州市",},{  "value": "330106",  "label": "西湖区"}],
+    [{  "value": "330000",  "label": "浙江省",},{  "value": "330100",  "label": "杭州市",},{  "value": "330107",  "label": "余杭区"}],
+    [{  "value": "330000",  "label": "浙江省",},{  "value": "330200",  "label": "温州市",},{  "value": "330206",  "label": "龙湾区"}],
+    [{  "value": "120000",  "label": "新疆维吾尔自治区",},{  "value": "120100",  "label": "博尔塔拉蒙古自治州",},{  "value": "120111",  "label": "阿拉山口市"}]
+  ]
+ */
+
+      //  错误的方法
+      /* var arr = [];
+      function flattenTree(options) {
+        for (var i = 0; i < options.length; i++) {
+          if (!arr[i]) arr[i] = [];
+          arr[i].push({ value: options[i].value, label: options[i].label });
+          if (options[i].children) flattenTree(options[i].children);
+        }
+        console.log(arr);
+      }
+      flattenTree(options); */
+
+      var arr = [];
+      function flattenTree(options, list) {
+        if (arr.length === 0) {
+          for (var i = 0; i < options.length; i++) {
+            if (!arr[i]) arr[i] = [];
+            flattenTree(options[i], arr[i]);
+          }
+        }
+        if (list) {
+          list.push({ value: options.value, label: options.label });
+          if (!options.children) return;
+          for (var j = 0; j < options.children.length; j++) {
+            flattenTree(options.children[j], list);
+          }
+        }
+      }
+      flattenTree(options);//因为第一次遍历时只遍历最外层，必然没有内层元素，所以不需要带入参数list
+      console.log(arr, options);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="divs">
+        <div id="div0">
+            <p id="p0"></p>
+            <p id="p1"></p>
+        </div>
+        <div id="div1">
+            <p id="p2"></p>
+            <p id="p3"></p>
+            <p id="p4"></p>
+        </div>
+    </div>
+    <div id="div2">
+        <div id="div3">
+            <p id="p5">
+                <p id="p6"></p>
+            </p>
+          </div>
+        <div id="div4">
+            <span id="span0">
+                <span id="span1"></span>
+                <span id="span2"></span>
+                <span id="span3">
+                    <span id="span4"></span>
+                </span>
+            </span>
+        </div>
+    </div>
+  
+    <script>
+        // 1.知道什么是递归
+        // 递归深度遍历
+
+        /* var obj={
+          children:{
+              children:{
+                  children:{
+                      children:{
+                          value:5
+                      },
+                      value:4
+                  },
+                  value:3
+              },
+              value:2,
+          },
+          value:1
+      }
+    
+      function fn(obj){
+          console.log(obj.value);
+          if(obj.children)
+          fn(obj.children)
+      } 
+      fn(obj)*/
+
+
+    //   遍历二叉树
+    /* var tree = {
+        left: {
+          left: {
+            left: {
+                value:7
+            },
+            right: {
+                value:8
+            },
+            value: 3,
+          },
+          right: {
+            left: {
+                value:9
+            },
+            right: {
+                value:10
+            },
+            value: 4,
+          },
+          value: 1,
+        },
+        right: {
+          left: {
+            left: {
+                value:11
+            },
+            right: {
+                value:12
+            },
+            value: 5,
+          },
+          right: {
+            left: {
+                value:13
+            },
+            right: {
+                value:14
+            },
+            value: 6,
+          },
+          value: 2,
+        },
+        value:0
+      };
+
+      function mapTree(obj){
+        //   console.log(obj.value)//写在第一句 从上到下，从左到右
+          if(obj.left) mapTree(obj.left);
+          if(obj.right) mapTree(obj.right);
+          console.log(obj.value)//写在最后 从下到上，从左到右
+      }
+      mapTree(tree) */
+
+     //   遍历html属性
+     /*  var obj={};
+         function getElems(elem){
+              if(elem.id) obj[elem.id]=elem;
+              for(var i=0;i<elem.children.length;i++){
+                  getElems(elem.children[i])
+              }
+          }
+          getElems(document.body);
+          console.log(obj);
+          obj["div2"].textContent="aaa";
+     */
+
+
+      //递归的return
+      //   不继续递归return的 是第一次return
+      function fn(n){
+          if(!n) n=1;
+          //执行递归时，一定要把跳出的条件写在递归之前，否则会死循环堆栈溢出
+          if(n>3) return n;
+          var s=fn(n+1);
+          console.log(s,1);
+          return s;
+      } 
+      function fn1(n){
+          if(!n) n=1;
+          if(n>3) return n;
+          var s=fn2(n+1);
+          console.log(s,2);
+          return s;
+      } 
+      function fn2(n){
+          if(!n) n=1;
+          if(n>3) return n;
+          var s=fn3(n+1);
+          console.log(s,3);
+          return s;
+      } 
+      function fn3(n){
+          if(!n) n=1;
+          if(n>3) return n;
+      }
+
+    //   以上所有的函数方法等同以下一个函数
+    /* function fn(n){
+          if(!n) n=1;
+          if(n>3) return n;
+          var s=fn(n+1);
+          console.log(s);
+          return s;
+      }  */
+      var n=fn();
+      console.log(n)
+
+
+     // 以上还可以这么写
+     /*  function fn(n){
+          if(!n) n=1;
+          if(n<3){
+              return fn(n+1)
+          }
+          return n;//第一次的return
+      } */
+
+
+       // "2[2[4[6[ab]]]]";
+    //    ab字符串执行6次后，整个字符串在执行4次....
+    </script>
+</body>
+</html>

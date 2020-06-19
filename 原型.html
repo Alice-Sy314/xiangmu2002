@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // __proto__
+
+      class Box {
+        constructor() {}
+        // 这个方法会被加在原型链中
+        play() {}
+        run() {}
+        static run() {}
+      }
+      var o = new Box();
+      // 这个方法就是o这个对象独有的方法，o1是没有的
+      o.h5 = function () {};
+      var o1 = new Box();
+      console.log(o, o1);
+
+      // ES5
+      function Box1() {}
+
+      Box1.prototype.play = function () {};
+      // 这个等同于ES6中run方法
+      Box1.prototype.run = function () {};
+
+      // 等同于ES6中static 的方法run
+      Box1.run = function () {};
+
+      var o2 = new Box1();
+      // 对象的最近原型链于当前对象的类的原型相同
+      // console.log(o.__proto__===Box.prototype);
+      // console.log(Box.prototype);
+      // console.log(o.__proto__);
+
+      // 其实对象的原型链与该对象对应的类的原型是完全相同的
+      // 只不过，我们把对象中的叫做原型链,__proto__
+      // 类中的叫做原型，使用prototype
+    </script>
+  </body>
+</html>
